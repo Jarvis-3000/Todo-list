@@ -1,0 +1,122 @@
+<!-- saved from url=(0051)file:///C:/Users/Satish/Desktop/Javascript/js1.html -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+    <style>
+        body {
+            background-image: linear-gradient(to left bottom, blue, powderblue);
+        }
+        
+        #me {
+            color: indigo;
+            text-align: center;
+            border: 2px solid indigo;
+            border-radius: 5px;
+            width: 400px;
+            padding: 10px 40px 10px 0px;
+            background-color: rgba(100, 100, 30, 0.1);
+            position: absolute;
+            left: calc(50% - 200px);
+            top: 100px;
+        }
+        
+        .in {
+            color: lightcoral;
+            padding: 5px 10px;
+            border: 1px solid indigo;
+            border-radius: 5px;
+        }
+        
+        .in1 {
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid indigo;
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="me">
+        <h2>Throw your Wishes</h2>
+
+        <div>
+            <input type="text" id="inp" placeholder="Name" class="in">
+            <button onclick="my()" class="in1">Add</button>
+        </div>
+
+        <ul id="demo">
+
+        </ul>
+    </div>
+    <br>
+    <br>
+
+
+
+
+    <script>
+        function my() {
+
+
+            var demo = document.getElementById("demo");
+            var e = document.createElement("p");
+
+            // e.addClass=change;
+            e.style.cssText += 'color:green;background:orange;padding:10px;height:20px';
+
+            var text = document.getElementById("inp").value;
+            var t = document.createTextNode(text);
+            var btn = document.createElement("button");
+            btn.style.cssText += 'float:right';
+
+            btn.textContent = "Delete";
+            e.style.fontSize = "20px";
+            e.style.borderRadius = "5px";
+
+            e.appendChild(t);
+            e.appendChild(btn);
+            e.setAttribute('id', Math.random());
+
+            var bt = document.createElement("button");
+            bt.textContent = "Replace";
+
+            bt.onclick = e.style.color = "black";
+
+
+            e.addEventListener("mouseenter", function() {
+
+                // var e = document.getElementById(e.id);
+                e.appendChild(bt);
+
+            });
+
+            e.addEventListener("mouseout", function() {
+                document.getElementById(e.id).style.color = "green";
+                e.removeChild(bt);
+
+            });
+
+            btn.addEventListener("click", function() {
+                Add(e.id);
+            });
+            demo.appendChild(e);
+
+        }
+
+        function Add(t) {
+
+            //document.getElementById(t).style.color = "black";
+
+            document.getElementById("demo").removeChild(document.getElementById(t));
+        }
+    </script>
+
+
+</body>
+
+</html>
