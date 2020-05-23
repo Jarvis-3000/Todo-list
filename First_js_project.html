@@ -1,73 +1,248 @@
-<!-- saved from url=(0051)file:///C:/Users/Satish/Desktop/Javascript/js1.html -->
 <html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-
-    <style>
+    <script src="to_DO_Button.js"></script>
+<style>
         body {
-            background-image: linear-gradient(to left bottom, blue, powderblue);
+            background-image: url("http://appinformers.com/wp-content/uploads/2017/03/checklist.jpg");
+        }
+
+        
+        #add {
+            color: indigo;
+            text-align: center;
+            border: 2px solid indigo;
+            border-radius: 5px;
+            width: 400px;
+          
+            padding:10px 20px;
+            background-color: rgba(103, 67, 221, 0.2);
+            position: absolute;
+            left: calc(50% - 200px);
+            top: 100px;
+            border-top-left-radius: 0px; 
+            border-top-right-radius: 0px; 
+            border-top:none;
         }
         
-        #me {
+        .in {
+            background-color: tomato;
+            padding: 10px 10px;
+            border: 1px solid indigo;
+            border-radius: 5px;
+            outline:none;
+        }
+        
+        .in1 {
+            color: black;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid indigo;
+            background-color: tomato;
+            outline:none;
+        }
+
+         #search {
             color: indigo;
             text-align: center;
             border: 2px solid indigo;
             border-radius: 5px;
             width: 400px;
             padding: 10px 40px 10px 0px;
-            background-color: rgba(100, 100, 30, 0.1);
+            background-color: rgba(103, 67, 221, 0.2);
             position: absolute;
             left: calc(50% - 200px);
             top: 100px;
+            border-top-left-radius: 0px; 
+            border-top-right-radius: 0px; 
+            border-top:none;
+            display:none;
+            
         }
-        
-        .in {
-            color: lightcoral;
-            padding: 5px 10px;
-            border: 1px solid indigo;
-            border-radius: 5px;
-        }
-        
-        .in1 {
-            color: black;
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid indigo;
+       .search_in {
+            
             background-color: tomato;
+            padding: 10px 20px;
+            border: 1px solid indigo;
+            border-radius: 5px;
+            outline:none;
         }
+        
+     
+
+         #btns {
+            color: indigo;
+            text-align: center;
+            border: 2px solid indigo;
+            border-radius: 5px;
+            width: 440px;
+            padding: 0px 0px;
+            background-color: rgba(103, 67, 221, 0.2);
+            position: absolute;
+            left: calc(50% - 200px);
+            top:51px;
+            display:inline-block;
+            border-bottom-left-radius: 0px; 
+            border-bottom-right-radius: 0px; 
+        }
+
+         .bt1
+        {
+           width:218px;
+           margin:0px;
+           padding:15px;
+           background-color:rgba(103, 67, 221, 0.2);
+           border:none;
+           outline:none; 
+           background-color:rgba(100, 100, 30, .5);
+            
+        }
+         .bt2
+        {
+           width:218px;
+           margin:0px;
+           padding:15px;
+           background-color:rgba(100, 100, 30, 0);
+           border:none;
+           outline:none; 
+            
+        }
+        
+
+
+          #list_container {
+            color: indigo;
+            text-align: center;
+            border: 2px solid indigo;
+            border-radius: 5px;
+            width: 400px;
+            max-height:420px;
+            overflow-y:auto;
+            padding: 10px 20px;
+            background-color: rgba(103, 67, 221, 0.2);
+            position: absolute;
+            left: calc(50% - 200px);
+            top:250px;
+
+        }
+
+     ::-webkit-scrollbar{
+       width:10px;
+     }
+     ::-webkit-scrollbar-thumb{
+       width:10px;
+       background-image:linear-gradient(orange,red,green,blue); 
+       border-radius:3px;
+     }
+
+
+     .Lis
+     {
+         color:green;
+         background-color:orange;
+         padding:10px;
+         height:20px;
+         font-size:20px;
+         border-radius:5px;
+     }
+ 
+  
+
     </style>
 </head>
 
 <body>
 
-    <div id="me">
-        <h2>Throw your Wishes</h2>
 
+    <div id="input_box">
+        <!-- add and search button for enable input -->
+        <div id="btns">
+            <button class="bt1" onclick="add(this)">ADD</button>
+            <button class="bt2" onclick="search(this)">SEARCH</button>
+        </div>
+        <!-- input boxes add -->
+    <div id="add">
+        <h2>Throw your Wishes</h2>
         <div>
             <input type="text" id="inp" placeholder="Name" class="in">
             <button onclick="my()" class="in1">Add</button>
         </div>
-
-        <ul id="demo">
-
-        </ul>
+        <br>
+        <!-- input boxes for search -->
+    </div>
+    <div id="search">
+        <h2>Search you wish</h2>
+        <div>
+            <input type="text" id="search_inp" placeholder="Search.." class="search_in">
+            <!-- <button onclick="search()" class="search_in1">Search</button> -->
+        </div>
+        <br>
+    </div>
+    </div>
+    <!-- List container -->
+    <div id="list_container">
+        
     </div>
     <br>
     <br>
 
-
-
-
     <script>
+
+          const add=(e)=>
+        {
+            var Add=document.getElementById("add");
+            var Search=document.getElementById("search");
+            Add.style.display="block";    
+            Search.style.display="none";
+            // btn1 ADD styling
+            e.style.backgroundColor="rgba(100, 100, 30, .5)";
+            // btn2 SEARCH styling
+            e.nextElementSibling.style.backgroundColor="rgba(100, 100, 30, 0)";
+        }
+
+        const search=(e)=>
+        {
+            var Add=document.getElementById("add");
+            var Search=document.getElementById("search");
+            Add.style.display="none";
+            Search.style.display="block"; 
+            // btn2 SEARCH styling
+            e.style.backgroundColor="rgba(100, 100, 30, .5)";
+            // btn1 ADD styling
+            e.previousElementSibling.style.backgroundColor="rgba(100, 100, 30, 0)";
+        }
+        // search through letters
+        var demo = document.getElementById("list_container");
+        var s_inp=document.getElementById("search_inp");
+        var inp=document.getElementById("inp");
+    
+        const filter_list=()=>
+        {
+              var l=demo.children.length;
+              for(let i=0;i<l;i++)
+              {
+                 let val=demo.children[i].childNodes[0].textContent;
+
+                 if((val.indexOf(inp.value)==-1))
+                 {
+                    demo.children[i].style.display="none";
+                 }
+                 else{
+                     
+                    demo.children[i].style.display="block";
+                 }
+              }    
+        }
+
+        s_inp.addEventListener("keyup",filter_list);
+
+
         function my() {
-
-
-            var demo = document.getElementById("demo");
+            
             var e = document.createElement("p");
 
             // e.addClass=change;
-            e.style.cssText += 'color:green;background:orange;padding:10px;height:20px';
 
             var text = document.getElementById("inp").value;
             var t = document.createTextNode(text);
@@ -75,44 +250,28 @@
             btn.style.cssText += 'float:right';
 
             btn.textContent = "Delete";
-            e.style.fontSize = "20px";
-            e.style.borderRadius = "5px";
 
             e.appendChild(t);
             e.appendChild(btn);
             e.setAttribute('id', Math.random());
-
-            var bt = document.createElement("button");
-            bt.textContent = "Replace";
-
-            bt.onclick = e.style.color = "black";
-
-
-            e.addEventListener("mouseenter", function() {
-
-                // var e = document.getElementById(e.id);
-                e.appendChild(bt);
-
-            });
-
-            e.addEventListener("mouseout", function() {
-                document.getElementById(e.id).style.color = "green";
-                e.removeChild(bt);
-
-            });
+            e.setAttribute("class","Lis");
 
             btn.addEventListener("click", function() {
-                Add(e.id);
+                Remove(e.id);
             });
             demo.appendChild(e);
 
         }
 
-        function Add(t) {
+        inp.addEventListener("keyup",function(){
+            if(event.keyCode===13)
+            {
+                my();
+            }
+        });
 
-            //document.getElementById(t).style.color = "black";
-
-            document.getElementById("demo").removeChild(document.getElementById(t));
+        function Remove(t) {
+            document.getElementById("list_container").removeChild(document.getElementById(t));
         }
     </script>
 
