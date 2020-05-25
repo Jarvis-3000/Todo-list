@@ -2,7 +2,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <script src="to_DO_Button.js"></script>
+<script src="drag_todo.js"></script>
+<script src="buttons_todo.js"></script>
+<script src="filter_todo.js"></script>
 <style>
         body {
             background-image: url("http://appinformers.com/wp-content/uploads/2017/03/checklist.jpg");
@@ -145,6 +147,7 @@
          height:20px;
          font-size:20px;
          border-radius:5px;
+         cursor:move;
      }
  
   
@@ -174,7 +177,7 @@
     <div id="search">
         <h2>Search you wish</h2>
         <div>
-            <input type="text" id="search_inp" placeholder="Search.." class="search_in">
+            <input  type="text" id="search_inp" placeholder="Search.." class="search_in">
             <!-- <button onclick="search()" class="search_in1">Search</button> -->
         </div>
         <br>
@@ -188,58 +191,13 @@
     <br>
 
     <script>
-
-          const add=(e)=>
-        {
-            var Add=document.getElementById("add");
-            var Search=document.getElementById("search");
-            Add.style.display="block";    
-            Search.style.display="none";
-            // btn1 ADD styling
-            e.style.backgroundColor="rgba(100, 100, 30, .5)";
-            // btn2 SEARCH styling
-            e.nextElementSibling.style.backgroundColor="rgba(100, 100, 30, 0)";
-        }
-
-        const search=(e)=>
-        {
-            var Add=document.getElementById("add");
-            var Search=document.getElementById("search");
-            Add.style.display="none";
-            Search.style.display="block"; 
-            // btn2 SEARCH styling
-            e.style.backgroundColor="rgba(100, 100, 30, .5)";
-            // btn1 ADD styling
-            e.previousElementSibling.style.backgroundColor="rgba(100, 100, 30, 0)";
-        }
-        // search through letters
-        var demo = document.getElementById("list_container");
-        var s_inp=document.getElementById("search_inp");
-        var inp=document.getElementById("inp");
-    
-        const filter_list=()=>
-        {
-              var l=demo.children.length;
-              for(let i=0;i<l;i++)
-              {
-                 let val=demo.children[i].childNodes[0].textContent;
-
-                 if((val.indexOf(inp.value)==-1))
-                 {
-                    demo.children[i].style.display="none";
-                 }
-                 else{
-                     
-                    demo.children[i].style.display="block";
-                 }
-              }    
-        }
-
-        s_inp.addEventListener("keyup",filter_list);
-
+var inp=document.getElementById("inp");
+var demo = document.getElementById("list_container");
+var s_inp=document.getElementById("search_inp");
 
         function my() {
-            
+
+            var div=document.createElement("div");
             var e = document.createElement("p");
 
             // e.addClass=change;
@@ -253,13 +211,15 @@
 
             e.appendChild(t);
             e.appendChild(btn);
-            e.setAttribute('id', Math.random());
+            div.setAttribute('id', Math.random());
             e.setAttribute("class","Lis");
+            e.setAttribute("draggable",true);
 
             btn.addEventListener("click", function() {
-                Remove(e.id);
+                Remove(div.id);
             });
-            demo.appendChild(e);
+            div.appendChild(e);
+            demo.appendChild(div);
 
         }
 
@@ -269,6 +229,9 @@
                 my();
             }
         });
+
+
+s_inp.addEventListener("keyup",filter_list);
 
         function Remove(t) {
             document.getElementById("list_container").removeChild(document.getElementById(t));
