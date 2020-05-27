@@ -191,18 +191,74 @@
     <br>
 
     <script>
-var inp=document.getElementById("inp");
-var demo = document.getElementById("list_container");
-var s_inp=document.getElementById("search_inp");
+    
+    var inp=document.getElementById("inp");
+    var demo = document.getElementById("list_container");
+    var s_inp=document.getElementById("search_inp");
 
-        function my() {
+
+    var model = {
+        init: function() {
+            if (!localStorage.note) {
+                localStorage.note = JSON.stringify([]);
+            }
+        },
+        add: function(obj) {
+            var data = JSON.parse(localStorage.note);
+            data.push(obj);
+            localStorage.note = JSON.stringify(data);
+        },
+        getAllNotes: function() {
+            return JSON.parse(localStorage.note);
+        }
+    };
+
+var i_load=0;
+
+window.addEventListener("load" ,function(){
+    
+if (!localStorage.note) {
+console.log("empty");
+}
+else{
+i_load++;
+if(i_load==1)
+{
+// var data=model.getAllNotes();
+var data=model.getAllNotes();
+console.log(data);
+var i=0;
+for(var Arr of data)
+{
+    console.log(i);
+    var arr=Arr.split(",");
+    addList(arr[0],arr[1]);
+    setTimeout(function(){},1000);
+}
+console.log("yes");
+}
+}
+});
+
+
+ function my()
+ {          
+    var text = document.getElementById("inp").value;
+    document.getElementById("inp").value='';
+    var ID=Math.random();
+
+    addList(text,ID);
+    model.init();
+    model.add(text +","+ ID);
+ }   
+
+        function addList(text,ID) {
 
             var div=document.createElement("div");
             var e = document.createElement("p");
 
             // e.addClass=change;
 
-            var text = document.getElementById("inp").value;
             var t = document.createTextNode(text);
             var btn = document.createElement("button");
             btn.style.cssText += 'float:right';
@@ -211,34 +267,53 @@ var s_inp=document.getElementById("search_inp");
 
             e.appendChild(t);
             e.appendChild(btn);
-            div.setAttribute('id', Math.random());
+            div.setAttribute('id', ID);
             e.setAttribute("class","Lis");
             e.setAttribute("draggable",true);
 
             btn.addEventListener("click", function() {
                 Remove(div.id);
             });
+
+             //adding in localStorage
+            
+
             div.appendChild(e);
             demo.appendChild(div);
-
         }
 
         inp.addEventListener("keyup",function(){
             if(event.keyCode===13)
-            {
+            {  
                 my();
-            }
+            }          
         });
 
-
-s_inp.addEventListener("keyup",filter_list);
+        s_inp.addEventListener("keyup",filter_list);
 
         function Remove(t) {
+            
+            var text=document.getElementById(t).children[0].childNodes[0].textContent;
             document.getElementById("list_container").removeChild(document.getElementById(t));
+            // console.log(text+","+t);
+            // var no=
+            var data =JSON.parse(localStorage.note);
+
+            for(var i in  data)
+            {
+                if(data[i]===text+","+t)
+                {
+                    data.splice(i,i+1);
+                }
+            }
+            
+            console.log(data);
+            //  localStorage.setItem('note',data);
+            localStorage.note=JSON.stringify(data);
+
+       
         }
-    </script>
-
-
+</script>
+ 
 </body>
-
 </html>
